@@ -24,7 +24,6 @@ public class SearchWeatherInYourCity extends  BusinessConventionProvider{
     private static final String API_KEY = "eb4b2aebcef4ddb419fb427604bd4880";
     private static final String SEARCH_WEATHER_PATH = "/data/2.5/weather";
     private static final String SEARCH_WEATHER_QUERY = "q=My Tho, VN&unit=Imperia&appid=" + API_KEY;
-    private static final String SEARCH_INVALID_CITY_PATH = "/data/2.5/weather";
     private static final String SEARCH_INVALID_CITY_QUERY = "id=12345784575478&units=metric&appid=" + API_KEY;
 
     private static final Map<String, String> DEFAULT_HEADERS = ImmutableMap.of(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
@@ -116,7 +115,7 @@ public class SearchWeatherInYourCity extends  BusinessConventionProvider{
         return builder
                 .given("Search weather in your city is implemented!")
                 .uponReceiving("An request to search weather with invalid city")
-                .path(SEARCH_INVALID_CITY_PATH)
+                .path(SEARCH_WEATHER_PATH)
                 .query(SEARCH_INVALID_CITY_QUERY)
                 .method(HttpMethod.GET.name())
                 .willRespondWith()
@@ -161,7 +160,7 @@ public class SearchWeatherInYourCity extends  BusinessConventionProvider{
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        ResponseEntity<String> response = handleRequestWithHttpStatusCodeException(SEARCH_INVALID_CITY_PATH + "?" +  SEARCH_INVALID_CITY_QUERY, StringUtils.EMPTY, HttpMethod.GET, headers,
+        ResponseEntity<String> response = handleRequestWithHttpStatusCodeException(SEARCH_WEATHER_PATH + "?" +  SEARCH_INVALID_CITY_QUERY, StringUtils.EMPTY, HttpMethod.GET, headers,
                 StringUtils.EMPTY);
         Assert.assertTrue(response.getHeaders().getContentType().toString().equals(MediaType.APPLICATION_JSON_VALUE));
         Assert.assertEquals(response.getStatusCodeValue(), HttpStatus.NOT_FOUND.value());

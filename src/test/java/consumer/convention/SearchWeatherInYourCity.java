@@ -23,7 +23,7 @@ import org.testng.Assert;
 public class SearchWeatherInYourCity extends  BusinessConventionProvider{
     private static final String API_KEY = "eb4b2aebcef4ddb419fb427604bd4880";
     private static final String SEARCH_WEATHER_PATH = "/data/2.5/weather";
-    private static final String SEARCH_WEATHER_QUERY = "q=My Tho, VN&unit=Imperia&appid=" + API_KEY;
+    private static final String SEARCH_WEATHER_QUERY = "q=My Tho, VN&units=Imperia&appid=" + API_KEY;
     private static final String SEARCH_INVALID_CITY_QUERY = "id=12345784575478&units=metric&appid=" + API_KEY;
 
     private static final Map<String, String> DEFAULT_HEADERS = ImmutableMap.of(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);

@@ -18,7 +18,8 @@ In this source, I create 2 pact consumer:
 
 - Clone source from this repo to your PC
 - Go to folder that store this souce code, open terminal and run "grade test"
-- Run "gradle pactPublish" to publish pact consumer to pact-broker server
+- Then, run "gradle pactPublish" to publish pact consumer to pact-broker server
 
 After finished, you will see as below image:
+
 ![image](https://user-images.githubusercontent.com/17809726/116716226-b0a19200-aa01-11eb-8db5-42974168c939.png)

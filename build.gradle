@@ -1,0 +1,64 @@
+/*
+ * This build file the Pact consumer side tests.
+ *
+ * To delete pacts from the Pact Broker run
+ *
+ * To remove items from the pact-broker see remove-pact.sh
+ */
+plugins {
+    id 'java-library'
+    id 'au.com.dius.pact' version '3.5.9'
+}
+
+group 'ODataDemo'
+version = '1.0.0'  // PACTs require SemVer
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+
+// Declare where to find the dependencies of your project
+repositories {
+    jcenter()
+}
+
+configurations {
+    compile.exclude group: 'ch.qos.logback', module: 'logback-classic'
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web:1.5.7.RELEASE')
+
+    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+    implementation 'com.google.guava:guava:22.0'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.testng:testng:6.14.3'
+    testCompile 'au.com.dius:pact-jvm-consumer-junit_2.11:3.5.9'
+    // Logging - standard SLF4J to Log4J2
+    def log4J2Version = '2.9.1'
+    testCompile "org.apache.logging.log4j:log4j-api:${log4J2Version}"
+    testCompile "org.apache.logging.log4j:log4j-core:${log4J2Version}"
+    testCompile "org.apache.logging.log4j:log4j-slf4j-impl:${log4J2Version}"
+}
+
+// Initialize the created Pact records folder
+test {
+    systemProperty 'pact.rootDir', "$buildDir/pacts"
+}
+
+// Configure to run test task before pactPublish task
+pactPublish.dependsOn test
+
+//Configure pact publish task parameters
+pact {
+    publish {
+        pactBrokerUrl = pactBrokerScheme + "://" + pactBrokerHost + ":" + pactBrokerPort
+        pactBrokerUsername = brokerUsername
+        pactBrokerPassword = brokerPassword
+        version = '1.0.0'
+        tags = ['Initial version']
+    }
+}
+
+
+
+

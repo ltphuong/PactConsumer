@@ -1,6 +1,6 @@
 # Overview
 
-In this source, I create 2 pact consumer:
+In this source, I create 2 contract for API with endpoint: api.openweathermap.org/data/2.5/weather
 1. Search weather by city name
 2. Search weatther with invalid city id
 
